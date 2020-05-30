@@ -4,7 +4,7 @@
 /* eslint-disable no-extra-boolean-cast */
 /* eslint-disable prefer-template */
 
-const stringHelper = require('../utils/stringHelper');
+const stringHelper = require('../common/stringHelper');
 
 function customDomainHandler() {
 	return async (ctx, next) => {

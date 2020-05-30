@@ -5,7 +5,7 @@ const Router = require('koa-joi-router');
 
 const docs = require('../docs');
 
-const { logger } = require('../utils/logger')(__filename);
+const { logger } = require('../common/logger')(__filename);
 
 const scraper = require('./scraper')(Router);
 

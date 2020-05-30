@@ -1,4 +1,5 @@
-const { logger } = require('../../utils/logger')(__filename);
+const uuidv4 = require('uuidv4');
+const { logger } = require('../../common/logger')(__filename);
 
 module.exports = services => {
 	async function getContentByID(ctx) {
@@ -61,9 +62,11 @@ module.exports = services => {
 	async function registerURL(ctx) {
 		const { request, response } = ctx;
 		const requestBody = request.body;
-		logger.info('registerURL:', requestBody.url);
+		const id = uuidv4();
 
-		const data = await services.scraperService.registerURL(requestBody.url);
+		logger.info('registerURL:', requestBody.url);
+		const data = await services.scraperService.registerURL(id, requestBody.url);
+
 		if (data.status !== 'success') {
 			logger.error('error while registering URL with message:', data.message);
 			response.status = 500;
@@ -85,9 +88,17 @@ module.exports = services => {
 		}
 	}
 
+	async function testRenderURL(ctx) {
+		const { response, query } = ctx;
+		const data = await services.scraperService.testRenderURL(query.url);
+		response.status = 200;
+		ctx.body = data;
+	}
+
 	return {
 		getContentByID,
 		deleteURL,
-		registerURL
+		registerURL,
+		testRenderURL
 	};
 };
