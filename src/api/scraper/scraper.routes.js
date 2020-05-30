@@ -37,7 +37,7 @@ module.exports = controller => {
 			meta: {
 				swagger: {
 					summary: 'Scrapping test API',
-					description: 'Scrapping test API with (e.g. ?url=<http://gaea.id>)',
+					description: 'Scrapping test API with (e.g. ../render?url=http://gaea.id)',
 					swaggerTags
 				}
 			},
