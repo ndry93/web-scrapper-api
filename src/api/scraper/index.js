@@ -1,5 +1,6 @@
+/* eslint-disable global-require */
 const scraperService = require('./scraper.service')({
-	// db: require("../../../src/utils/db")
+	utils: require('../../common/utils')()
 });
 
 // controller function takes option argument
