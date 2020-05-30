@@ -13,7 +13,7 @@ function generateSpec() {
 	return generator.generateSpec(
 		{
 			info: {
-				title: 'web-scraper-api',
+				title: 'web-scrapper-api',
 				description: 'API Documentation',
 				version: '1'
 			},

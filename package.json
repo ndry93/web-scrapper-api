@@ -1,9 +1,9 @@
 {
-  "name": "web-scraper-api",
+  "name": "web-scrapper-api",
   "version": "0.1.0",
   "description": "",
   "scripts": {
-    "start:sls": "sls offline start",
+    "start": "cross-env NODE_ENV=production node index.js",
     "start:dev": "cross-env NODE_ENV=development nodemon index.js",
     "start:stg": "cross-env NODE_ENV=staging node index.js",
     "start:prd": "cross-env NODE_ENV=production node index.js",
@@ -14,12 +14,12 @@
   "author": "Hendry Yuwono",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ndry93/web-scraper-api"
+    "url": "https://github.com/ndry93/web-scrapper-api"
   },
   "bugs": {
-    "url": "https://github.com/ndry93/web-scraper-api/issues"
+    "url": "https://github.com/ndry93/web-scrapper-api/issues"
   },
-  "homepage": "https://github.com/ndry93/web-scraper-api/issues",
+  "homepage": "https://github.com/ndry93/web-scrapper-api/issues",
   "license": "Not open source",
   "devDependencies": {
     "cross-env": "^6.0.3",

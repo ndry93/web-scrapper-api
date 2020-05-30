@@ -2,8 +2,7 @@
  * Rules
  * - database table name should not contain environment name
  * - base url should not have trailing slash (not recommended: http://localhost:8080/ , recommended: http://localhost:8080)
- * - process.env.NODE_ENV will be set during build (e.g cross-env NODE_ENV=staging node index.js)
- * - process.env should not be called outside configuration file
+ * - process.env should not be called outside this configuration file
  */
 
 require(`dotenv`).config();
