@@ -5,7 +5,7 @@ module.exports = controller => {
 	const routes = [
 		{
 			method: ['DELETE'],
-			path: '/delete',
+			path: '/',
 			meta: {
 				swagger: {
 					summary: 'Delete url for web-scrapping',
@@ -19,7 +19,7 @@ module.exports = controller => {
 		},
 		{
 			method: ['POST'],
-			path: '/create',
+			path: '/',
 			meta: {
 				swagger: {
 					summary: 'Register url for web-scrapping',
