@@ -29,7 +29,8 @@ module.exports = () => {
 
 		const respObj = {
 			status: 'success',
-			web_content: ''
+			web_content: '',
+			id: ''
 		};
 
 		const resp = await Promise.resolve(respObj);

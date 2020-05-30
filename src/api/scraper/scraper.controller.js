@@ -6,32 +6,18 @@ module.exports = services => {
 		const { id } = request.params;
 		logger.info('getContentByID:', id);
 
-		const data = services.scraperService.getContentByID(id);
+		const data = await services.scraperService.getContentByID(id);
 
 		if (data.status !== 'success') {
 			response.status = 404;
-			ctx.throw(404, 'id is invalid');
-		}
+			// ctx.throw(404, 'id is invalid');
+			// dont want to use throw because some cases requires custom body on error response
 
-		response.status = 200;
-		ctx.body = {
-			data: data.web_content
-		};
-	}
-
-	async function deleteURL(ctx) {
-		const { request, response } = ctx;
-		const requestBody = request.body;
-		logger.info('deleteURL:', requestBody.url);
-
-		const data = services.scraperService.registerURL(requestBody.url);
-		if (data.status !== 'success') {
-			logger.error('error while removing URL with message:', data.message);
-			response.status = 500;
 			ctx.body = {
 				data: {
 					status: data.status,
-					message: data.message
+					error_message: data.message,
+					web_content: data.web_content
 				}
 			};
 		} else {
@@ -39,7 +25,34 @@ module.exports = services => {
 			ctx.body = {
 				data: {
 					status: data.status,
-					message: data.message
+					error_message: data.message,
+					web_content: data.web_content
+				}
+			};
+		}
+	}
+
+	async function deleteURL(ctx) {
+		const { request, response } = ctx;
+		const requestBody = request.body;
+		logger.info('deleteURL:', requestBody.url);
+
+		const data = await services.scraperService.registerURL(requestBody.url);
+		if (data.status !== 'success') {
+			logger.error('error while removing URL with message:', data.message);
+			response.status = 500;
+			ctx.body = {
+				data: {
+					status: data.status,
+					error_message: data.message
+				}
+			};
+		} else {
+			response.status = 200;
+			ctx.body = {
+				data: {
+					status: data.status,
+					error_message: data.message
 				}
 			};
 		}
@@ -50,14 +63,14 @@ module.exports = services => {
 		const requestBody = request.body;
 		logger.info('registerURL:', requestBody.url);
 
-		const data = services.scraperService.registerURL(requestBody.url);
+		const data = await services.scraperService.registerURL(requestBody.url);
 		if (data.status !== 'success') {
 			logger.error('error while registering URL with message:', data.message);
 			response.status = 500;
 			ctx.body = {
 				data: {
 					status: data.status,
-					message: data.message
+					error_message: data.message
 				}
 			};
 		} else {
@@ -66,7 +79,7 @@ module.exports = services => {
 				data: {
 					id: data.id,
 					status: data.status,
-					message: data.message
+					error_message: data.message
 				}
 			};
 		}
