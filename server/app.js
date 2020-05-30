@@ -2,9 +2,9 @@ const Koa = require('koa');
 const helmet = require('koa-helmet');
 const Sentry = require('@sentry/node');
 const morgan = require('koa-morgan');
-const config = require('../src/config');
 const bodyParser = require('koa-bodyparser');
-const { logger } = require('../src/utils/logger')(__filename);
+const config = require('../src/config');
+const { logger } = require('../src/common/logger')(__filename);
 
 // init KoaJs
 const app = new Koa();
