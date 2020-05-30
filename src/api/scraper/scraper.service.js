@@ -1,8 +1,22 @@
-const { logger } = require('../../utils/logger')(__filename);
+const { logger } = require('../../common/logger')(__filename);
 
-module.exports = () => {
-	async function registerURL(id) {
-		logger.info('registerURL:', id);
+module.exports = options => {
+	const { utils } = options;
+
+	console.log('------- utils', utils);
+
+	async function testRenderURL(url) {
+		const $ = await utils.fetchHTML(url);
+		return $.html();
+	}
+
+	async function registerURL(id, url) {
+		logger.info('registerURL:', url, ' with id:', id);
+
+		const $ = await utils.fetchHTML(url);
+
+		// Print the full HTML
+		console.log(`Site HTML: ${$.html()}\n\n`);
 
 		const respObj = {
 			status: 'success',
@@ -40,6 +54,7 @@ module.exports = () => {
 	return {
 		registerURL,
 		deleteURL,
-		getContentByID
+		getContentByID,
+		testRenderURL
 	};
 };

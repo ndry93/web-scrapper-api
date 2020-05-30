@@ -33,6 +33,21 @@ module.exports = controller => {
 		},
 		{
 			method: ['GET'],
+			path: '/render',
+			meta: {
+				swagger: {
+					summary: 'Scrapping test API',
+					description: 'Scrapping test API with (e.g. ?url=<http://gaea.id>)',
+					swaggerTags
+				}
+			},
+			handler: async (ctx, next) => {
+				ctx.type = 'html';
+				await controller.testRenderURL(ctx);
+			}
+		},
+		{
+			method: ['GET'],
 			path: '/:id',
 			meta: {
 				swagger: {
