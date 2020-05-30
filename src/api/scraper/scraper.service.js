@@ -3,8 +3,6 @@ const { logger } = require('../../common/logger')(__filename);
 module.exports = options => {
 	const { utils } = options;
 
-	console.log('------- utils', utils);
-
 	async function testRenderURL(url) {
 		const $ = await utils.fetchHTML(url);
 		return $.html();

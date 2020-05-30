@@ -13,7 +13,7 @@ module.exports = controller => {
 					swaggerTags
 				}
 			},
-			handler: async (ctx, next) => {
+			handler: async ctx => {
 				await controller.deleteURL(ctx);
 			}
 		},
@@ -27,7 +27,7 @@ module.exports = controller => {
 					swaggerTags
 				}
 			},
-			handler: async (ctx, next) => {
+			handler: async ctx => {
 				await controller.registerURL(ctx);
 			}
 		},
@@ -41,7 +41,7 @@ module.exports = controller => {
 					swaggerTags
 				}
 			},
-			handler: async (ctx, next) => {
+			handler: async ctx => {
 				ctx.type = 'html';
 				await controller.testRenderURL(ctx);
 			}
@@ -56,7 +56,7 @@ module.exports = controller => {
 					swaggerTags
 				}
 			},
-			handler: async (ctx, next) => {
+			handler: async ctx => {
 				await controller.getContentByID(ctx);
 			}
 		}
