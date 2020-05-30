@@ -49,7 +49,7 @@ module.exports = controller => {
 
 	return Router => {
 		const router = Router();
-		router.prefix('/poster');
+		router.prefix('/scraper');
 		router.route(routes);
 		return router;
 	};
