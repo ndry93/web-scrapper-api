@@ -24,7 +24,7 @@ const configs = {
 	},
 	production: {
 		env,
-		PORT: 80,
+		PORT: 3000,
 		SENTRY_PROJECT_DSN: ''
 		// TO-DO: add production environment variables
 	}
