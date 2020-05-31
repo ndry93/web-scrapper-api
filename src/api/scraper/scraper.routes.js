@@ -57,7 +57,13 @@ module.exports = controller => {
 				}
 			},
 			handler: async ctx => {
-				await controller.getContentByID(ctx);
+				if (ctx.params.id) {
+					if (ctx.params.id === 'all') {
+						await controller.getAll(ctx);
+					} else {
+						await controller.getContentByID(ctx);
+					}
+				}
 			}
 		}
 	];

@@ -1,7 +1,7 @@
 const { logger } = require('../../common/logger')(__filename);
 
 module.exports = options => {
-	const { utils } = options;
+	const { utils, db } = options;
 
 	async function testRenderURL(url) {
 		const $ = await utils.fetchHTML(url);
@@ -11,18 +11,33 @@ module.exports = options => {
 	async function registerURL(id, url) {
 		logger.info('registerURL:', url, ' with id:', id);
 
-		const $ = await utils.fetchHTML(url);
+		try {
+			const $ = await utils.fetchHTML(url);
 
-		// Print the full HTML
-		console.log(`Site HTML: ${$.html()}\n\n`);
+			const insertData = {
+				id,
+				url,
+				web_content: $.html(),
+				created_timestamp: utils.getCurrentTimestamp()
+			};
+			const pouchResp = await db.create(insertData);
 
-		const respObj = {
-			status: 'success',
-			id: '110'
+			logger.info(pouchResp);
+
+			if (pouchResp.ok) {
+				return {
+					status: 'success',
+					id: pouchResp.id,
+					created_timestamp: pouchResp.created_timestamp
+				};
+			}
+		} catch (error) {
+			logger.error('error on registerURL with error ', error);
+		}
+		return {
+			status: 'fail',
+			error_message: 'failed registering the url'
 		};
-
-		const resp = await Promise.resolve(respObj);
-		return resp;
 	}
 
 	async function deleteURL(id) {
@@ -36,23 +51,64 @@ module.exports = options => {
 		return resp;
 	}
 
+	async function getAll() {
+		logger.info('getAll');
+		const pouchResp = await db.getAll();
+
+		try {
+			if (pouchResp) {
+				const records = [];
+				pouchResp.rows.forEach(element => {
+					const tempData = {
+						id: element.id,
+						url: element.doc.url,
+						created_timestamp: element.doc.created_timestamp
+					};
+					records.push(tempData);
+				});
+
+				return {
+					status: 'success',
+					records
+				};
+			}
+		} catch (error) {
+			logger.error('error on getAll with error ', error);
+		}
+		return {
+			status: 'fail',
+			error_message: 'failed fetching contents'
+		};
+	}
+
 	async function getContentByID(id) {
 		logger.info('getContentByID:', id);
 
-		const respObj = {
-			status: 'success',
-			web_content: '',
-			id: ''
+		const pouchResp = await db.get(id);
+		try {
+			if (pouchResp) {
+				return {
+					status: 'success',
+					id,
+					url: pouchResp.url,
+					web_content: pouchResp.web_content,
+					created_timestamp: pouchResp.created_timestamp
+				};
+			}
+		} catch (error) {
+			logger.error('error on getContentByID with error ', error);
+		}
+		return {
+			status: 'fail',
+			error_message: `failed fetching content id ${id}`
 		};
-
-		const resp = await Promise.resolve(respObj);
-		return resp;
 	}
 
 	return {
 		registerURL,
 		deleteURL,
 		getContentByID,
-		testRenderURL
+		testRenderURL,
+		getAll
 	};
 };

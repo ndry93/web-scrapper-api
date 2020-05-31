@@ -13,19 +13,22 @@ const configs = {
 	development: {
 		env,
 		PORT: 3000,
-		SENTRY_PROJECT_DSN: ''
+		SENTRY_PROJECT_DSN: '',
+		FE_BASE_URL: 'http://localhost:4200'
 		// TO-DO: add development environment variables
 	},
 	staging: {
 		env,
 		PORT: 3000,
-		SENTRY_PROJECT_DSN: ''
+		SENTRY_PROJECT_DSN: '',
+		FE_BASE_URL: 'http://localhost:4200'
 		// TO-DO: add staging environment variables
 	},
 	production: {
 		env,
 		PORT: process.env.PORT || 80,
-		SENTRY_PROJECT_DSN: ''
+		SENTRY_PROJECT_DSN: '',
+		FE_BASE_URL: 'https://product-showcase-ui.herokuapp.com'
 		// TO-DO: add production environment variables
 	}
 };

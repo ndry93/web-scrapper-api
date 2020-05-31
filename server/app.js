@@ -1,7 +1,8 @@
 const Koa = require('koa');
 const helmet = require('koa-helmet');
-const Sentry = require('@sentry/node');
+const cors = require('@koa/cors');
 const morgan = require('koa-morgan');
+const Sentry = require('@sentry/node');
 const bodyParser = require('koa-bodyparser');
 const config = require('../src/config');
 const { logger } = require('../src/common/logger')(__filename);
@@ -26,6 +27,12 @@ app.use(morgan('combined'));
 app.use(customDomainHandler());
 app.use(errorHandler());
 app.use(bodyParser());
+
+// cors header
+const options = {
+	origin: app.config.FE_BASE_URL
+};
+app.use(cors(options));
 
 app.use(async (ctx, next) => {
 	const start = Date.now();
