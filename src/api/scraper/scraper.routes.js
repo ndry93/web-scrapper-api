@@ -51,8 +51,8 @@ module.exports = controller => {
 			path: '/:id',
 			meta: {
 				swagger: {
-					summary: 'Get web-scrapping content by ID',
-					description: 'Get web-scrapping content by ID',
+					summary: 'Get all web-scrapping content or by ID',
+					description: 'Get `all` web-scrapping content or by ID',
 					swaggerTags
 				}
 			},
